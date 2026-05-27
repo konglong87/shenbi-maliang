@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-> 把你自己写成代码。将公众号/小红书/X/Twitter 的文章蒸馏成专属于你的「写作基因包」，让 AI 写出真正像你的文字。
+> 将公众号/小红书/X/Twitter 的文章蒸馏成专属于你的「写作基因包」，让 AI 写出真正像你的文字。
 
 ---
 
