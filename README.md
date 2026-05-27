@@ -85,28 +85,18 @@ git clone git@github.com:konglong87/shenbi-maliang.git
 cd shenbi-maliang
 ```
 
-### WorkBuddy
+### Claude Code安装方式
 
-原生支持，直接安装即可使用全部命令。
-
-1. 将 `writing-dna` 目录放入 WorkBuddy skills 目录
-2. 提供文章样本，说：**「蒸馏文章」**
-3. 查看DNA档案：**「DNA档案」**
-4. 用你的风格写新文章：**「按我风格写 [主题]」**
-
-### Claude Code
-
-将写作DNA框架注入 Claude Code，让它理解并复刻你的风格。
-
-**方法一：作为项目指令**
-
-将 `writing-dna/SKILL.md` 的核心内容追加到项目 `CLAUDE.md`：
-
-```bash
-cat writing-dna/SKILL.md >> CLAUDE.md
+```bash 
+安装：
+直接在claude对话框中说，帮我安装这个skills git@github.com:konglong87/shenbi-maliang.git
+```
+```
+使用：
+安装好之后，直接说：使用writing-dna蒸馏我的公众号写作风格dna，文章链接是xxx1，xxx2，https://mp.weixin.qq.com/s/kkkkkklongu1A
 ```
 
-在 Claude Code 对话中直接说「蒸馏我的文章」，它会按七维框架分析。
+在 Claude Code 对话中直接说「蒸馏我的文章,https://mp.weixin.qq.com/s/kkkkkklongu1A」，它会按七维框架分析。
 
 **方法二：DNA档案作为风格参考**
 
@@ -171,6 +161,15 @@ python3 distill_writing_dna.py --input ./samples/ --output ../references/
 # 增量更新（只处理新文章）
 python3 distill_writing_dna.py --input ./samples/ --mode incremental
 ```
+
+### WorkBuddy
+
+原生支持，直接安装即可使用全部命令。
+
+1. 将 `writing-dna` 目录放入 WorkBuddy skills 目录
+2. 提供文章样本，说：**「蒸馏文章」**
+3. 查看DNA档案：**「DNA档案」**
+4. 用你的风格写新文章：**「按我风格写 [主题]」**
 
 ---
 
