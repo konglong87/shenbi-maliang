@@ -8,7 +8,7 @@
 
 ## 为什么需要这个？
 
-你用 AI 写文章，输出永远是那个"AI 味"——满嘴「首先、其次、总而言之」，冷静平整得像块玻璃。
+用 AI 写文章，输出永远是那个"AI 味"——满嘴「首先、其次、总而言之」，冷静平整得像块玻璃。
 
 **写作DNA蒸馏**解决的就是这件事：读你几十篇文章，从中萃取出你的句式习惯、论证套路、情绪调性、选题偏好，甚至你的思维盲区。最后生成一个 DNA 档案——AI 拿着它就能写出几乎分不清是你写的还是它写的文字。
 
@@ -78,15 +78,89 @@ shenbi-maliang/
 
 ## 快速开始
 
-### 方式一：在 WorkBuddy 中使用
+克隆仓库：
+
+```bash
+git clone git@github.com:konglong87/shenbi-maliang.git
+cd shenbi-maliang
+```
+
+### WorkBuddy
+
+原生支持，直接安装即可使用全部命令。
 
 1. 将 `writing-dna` 目录放入 WorkBuddy skills 目录
-2. 提供你的文章样本，说：**「蒸馏文章」**
-3. 等待七维分析和三重验证完成
-4. 查看DNA档案：**「DNA档案」**
-5. 用你的风格写新文章：**「按我风格写 [主题]」**
+2. 提供文章样本，说：**「蒸馏文章」**
+3. 查看DNA档案：**「DNA档案」**
+4. 用你的风格写新文章：**「按我风格写 [主题]」**
 
-### 方式二：命令行独立运行
+### Claude Code
+
+将写作DNA框架注入 Claude Code，让它理解并复刻你的风格。
+
+**方法一：作为项目指令**
+
+将 `writing-dna/SKILL.md` 的核心内容追加到项目 `CLAUDE.md`：
+
+```bash
+cat writing-dna/SKILL.md >> CLAUDE.md
+```
+
+在 Claude Code 对话中直接说「蒸馏我的文章」，它会按七维框架分析。
+
+**方法二：DNA档案作为风格参考**
+
+蒸馏完成后，将生成的 `my-writing-dna.md` 内容添加到 `CLAUDE.md` 的用户风格部分。之后 Claude Code 在写作时会自动匹配你的风格。
+
+### Cursor
+
+**方法一：Rules 注入**
+
+将写作DNA框架添加为 Cursor Rule：
+
+1. 打开 Cursor → Settings → Rules
+2. 新建 Rule，将 `writing-dna/SKILL.md` 内容粘贴进去
+3. 设置为 `always` 或 `agent-requested`
+
+**方法二：.cursorrules**
+
+```bash
+cp writing-dna/references/writing-dna-framework.md .cursorrules
+```
+
+蒸馏出的 DNA 档案可追加到此文件末尾，Cursor 在写作任务中会参考。
+
+### OpenCode
+
+OpenCode 支持自定义 Workspace Rules，将写作DNA框架注册为项目规则：
+
+1. 打开 OpenCode → Workspace Settings → Instructions
+2. 将 `writing-dna/SKILL.md` 内容添加为 Project Instructions
+3. 蒸馏完成后，把 DNA 档案也添加进去
+
+对话中直接说「按我风格写一篇关于 X 的文章」，OpenCode 会加载规则生成。
+
+### Codex (OpenAI)
+
+Codex CLI 支持通过 `AGENTS.md` 或 `CODEX.md` 注入系统指令：
+
+```bash
+# 方法一：通过 AGENTS.md（Codex 自动加载）
+cat writing-dna/SKILL.md >> AGENTS.md
+
+# 方法二：通过 CODEX.md
+cp writing-dna/SKILL.md CODEX.md
+```
+
+也可以在 Codex 会话中手动指定：
+
+```bash
+codex exec "加载写作DNA框架: writing-dna/SKILL.md，然后按我的风格写..."
+```
+
+### 命令行独立运行
+
+如果只想跑蒸馏脚本，不需要任何 AI 工具：
 
 ```bash
 cd writing-dna/scripts
