@@ -1,5 +1,6 @@
 ---
 name: writing-dna
+version: v1.0.1
 description: This skill should be used when the user wants to distill their personal writing style, techniques, and thought patterns from their past articles (especially WeChat public account posts) into a reusable writing DNA profile. Use this skill to analyze writing samples, extract style fingerprints through multi-layer validation, and generate new content that faithfully replicates the user's unique voice.
 ---
 
