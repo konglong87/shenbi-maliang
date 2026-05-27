@@ -1,0 +1,73 @@
+# Writing DNA — 蒸馏配置文件
+# 调整此文件的阈值控制蒸馏的严格程度
+
+# ─── 三重验证阈值 ────────────────────────────────────────────
+validation:
+  # 验证一：频次验证
+  # 一个特征需要在至少 N 篇不同文章中出现才被采纳
+  frequency_threshold: 3          # 默认：至少3篇（样本少时可调低到2）
+
+  # 验证二：语境一致性
+  # 同一特征在 N% 以上的文章中表现一致才视为稳定
+  context_consistency_ratio: 0.6  # 默认：60%的样本中稳定出现
+
+  # 验证三：逻辑自洽
+  # 当新特征与已有特征冲突时的处理策略
+  conflict_strategy: "flag"       # "flag"=标记冲突 | "reject"=直接拒绝 | "replace"=以新换旧
+
+# ─── 置信度判断 ──────────────────────────────────────────────
+confidence:
+  high_threshold: 5    # 出现5篇以上 → 高置信 ★★★ → 升级为硬规则候选
+  medium_threshold: 2  # 出现2-4篇   → 中置信 ★★  → 软范式候选
+                       # 出现1篇     → 低置信 ★   → 标记[待确认]
+
+# ─── 特征采集规则 ────────────────────────────────────────────
+collector:
+  # 最小话题切片字数（过短的切片不参与特征提取）
+  min_segment_length: 100
+
+  # 高频词汇统计：词语在单篇文章中出现 N 次以上才统计
+  word_min_frequency_per_article: 3
+
+  # 口头禅候选：在全量样本中出现 N 次以上才进入口头禅候选库
+  catchphrase_total_threshold: 10
+
+  # 比喻密度：每千字出现 N 个以上算高密度
+  metaphor_high_density: 3
+
+  # 段落节奏：少于 N 字的段落视为"短段/爆破段"
+  short_paragraph_threshold: 50
+
+# ─── 增量蒸馏配置 ────────────────────────────────────────────
+incremental:
+  # 是否开启增量模式（false=全量重跑，true=只处理新文章）
+  enabled: true
+
+  # 增量合并策略：新特征与旧特征频次叠加 or 独立计算
+  merge_strategy: "accumulate"    # "accumulate"=累加 | "independent"=独立评估
+
+  # 版本历史保留数量（保留最近 N 个版本的DNA档案）
+  history_keep_versions: 5
+
+# ─── 反模式检测 ──────────────────────────────────────────────
+anti_pattern:
+  # 负面口头禅：在全量样本中出现 N 次以上且重复度高才列入负面口头禅
+  negative_catchphrase_threshold: 15
+
+  # 逻辑漏洞：需要在 N 篇以上文章中出现同类漏洞才记录
+  logic_flaw_threshold: 3
+
+# ─── 输出配置 ────────────────────────────────────────────────
+output:
+  # DNA档案输出路径（相对于 skill 目录）
+  dna_output_path: "references/my-writing-dna.md"
+
+  # 中间特征库路径
+  features_path: "data/features/"
+
+  # 是否在输出中包含来源溯源（文章编号）
+  include_source_reference: true
+
+  # 是否输出 JSON 格式的特征库（供程序读取）
+  export_features_json: true
+  features_json_path: "data/features/feature_pool.json"

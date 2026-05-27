@@ -1,0 +1,5 @@
+# WorkBuddy personal workspace data
+.workbuddy/
+
+# IDE
+.idea/
